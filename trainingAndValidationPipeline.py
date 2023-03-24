@@ -1,5 +1,5 @@
 from keras.datasets import fashion_mnist
-import tensorflow as tf
+from keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
 import visualizationPlotting as visplot
 from keras.utils.vis_utils import plot_model
@@ -25,10 +25,15 @@ x_test = x_test / 255.0
 
 
 
-def main(models):
+def main(models, nrOfEpochs):
     for model,modelname in models:
+        
+        model.summary()
+
+        #earlystopping:
+        es = EarlyStopping(monitor='val_loss',patience=3, mode='min', verbose= 1,restore_best_weights= True)
         #Fitting the model:
-        callback = model.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=1)
+        history = model.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=nrOfEpochs, callbacks = [es])
         
         
 
@@ -41,16 +46,15 @@ def main(models):
                 os.remove(file)
 
         #plot the performance:
-        visplot.plotPerformance(callback, modelname)
-
+        visplot.plotPerformance(history, modelname, nrOfEpochs)
+        
         #plot a grapical scheme of the network
-        plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True)
-
+        plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
 
 
 if __name__ == '__main__':
     modelList = [
-        (models.baseModel,'Base Model')
+        #(models.baseModel,'Base Model'),
+        (models.variationModel1, 'Variation Model1')
     ]
-    
-    main(modelList)
+    main(modelList, 15)
