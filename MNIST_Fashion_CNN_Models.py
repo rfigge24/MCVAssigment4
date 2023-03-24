@@ -2,7 +2,7 @@ from keras.datasets import fashion_mnist
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
-
+import pandas as pd
 
 #loading the data and setting up the label list:
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -33,25 +33,59 @@ for i in range(25):
     plt.xlabel(class_names[y_train[i]])
 plt.show()
 
-
-
 #BaseLine model:
-baseModel = tf.keras.Sequential([
+baseModel = tf.keras.Sequential()
 
-    tf.keras.layers.
-    tf.keras.layers.Flatten(input_shape=(28, 28)),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(10),
-    tf.keras.layers.Softmax()
-])
+baseModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = (3, 3),
+    padding = 'valid',
+    activation = 'relu',
+    input_shape = (28, 28, 1)
+    )
+)
 
+baseModel.add(
+    tf.keras.layers.MaxPool2D()
+)
 
+baseModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = (3, 3),
+    padding = 'valid',
+    activation = 'relu',
+    input_shape = (14, 14, 1)
+    )
+)
+
+baseModel.add(
+    tf.keras.layers.Flatten(input_shape=(14,14))
+)
+
+baseModel.add(
+    tf.keras.layers.Dense(
+    128,
+    activation = 'relu'
+    )
+)
+
+baseModel.add(
+    tf.keras.layers.Dense(
+    10
+    )
+)
 
 baseModel.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-callback = baseModel.fit(x_train, y_train, epochs=3)
+callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=5)
+
+pd.DataFrame(callback.history).plot()
+plt.show()
+
 print(callback.history.keys())
 
 
