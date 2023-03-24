@@ -55,8 +55,12 @@ baseModel.add(
 )
 
 baseModel.add(
+    tf.keras.layers.Dropout(0.25)
+)
+
+baseModel.add(
     tf.keras.layers.Conv2D(
-    filters = 32,
+    filters = 64,
     kernel_size = (3, 3),
     padding = 'valid',
     activation = 'relu'
@@ -64,22 +68,17 @@ baseModel.add(
 )
 
 baseModel.add(
-    tf.keras.layers.MaxPool2D()
+    tf.keras.layers.Dropout(0.1)
 )
 
 baseModel.add(
     tf.keras.layers.Conv2D(
-    filters = 32,
+    filters = 128,
     kernel_size = (3, 3),
     padding = 'valid',
     activation = 'relu'
     )
 )
-
-baseModel.add(
-    tf.keras.layers.MaxPool2D()
-)
-
 
 baseModel.add(
     tf.keras.layers.Flatten()
@@ -88,6 +87,13 @@ baseModel.add(
 baseModel.add(
     tf.keras.layers.Dense(
     128,
+    activation = 'relu'
+    )
+)
+
+baseModel.add(
+    tf.keras.layers.Dense(
+    64,
     activation = 'relu'
     )
 )
@@ -105,6 +111,7 @@ baseModel.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
+baseModel.summary()
 callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=15)
 
 visplot.plotPerformance(callback)
