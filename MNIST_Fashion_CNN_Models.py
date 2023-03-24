@@ -1,6 +1,7 @@
 from keras.datasets import fashion_mnist
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+from matplotlib import pyplot as plt
 
 
 #loading the data and setting up the label list:
@@ -19,6 +20,18 @@ x_train, x_validate, y_train, y_validate = train_test_split(x_train, y_train,ran
 x_train = x_train / 255.0
 x_validate = x_validate / 255.0
 x_test = x_test / 255.0
+
+
+#viewing the data:
+plt.figure(figsize=(10,10))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(x_train[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[y_train[i]])
+plt.show()
 
 
 
