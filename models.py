@@ -140,3 +140,70 @@ variationModel1.add(
 variationModel1.compile(optimizer= tf.keras.optimizers.Adam(),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
+
+#-------------------------------------model2
+model2 = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+
+#Adding layers to the base model:
+model2.add(
+    tf.keras.layers.Conv2D(
+    filters = 6,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    input_shape = (28, 28, 1)
+    )
+)
+model2.add(
+    tf.keras.layers.MaxPooling2D()
+)
+model2.add(
+    tf.keras.layers.Conv2D(
+    filters = 16,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+model2.add(
+    tf.keras.layers.MaxPooling2D()
+)
+model2.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+model2.add(
+    tf.keras.layers.Flatten()
+)
+model2.add(
+    tf.keras.layers.Dense(
+    64,
+    activation = 'relu'
+    )
+)
+model2.add(
+    tf.keras.layers.Dense(
+    120,
+    activation = 'relu'
+    )
+)
+model2.add(
+    tf.keras.layers.Dense(
+    80,
+    activation = 'relu'
+    )
+)
+model2.add(
+    tf.keras.layers.Dense(
+    10,
+    activation=tf.keras.activations.softmax
+    )
+)
+#Compiling Base Model:
+model2.compile(optimizer= tf.keras.optimizers.Adam(),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+              metrics=['accuracy'])

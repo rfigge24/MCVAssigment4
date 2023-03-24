@@ -55,6 +55,7 @@ def main(models, nrOfEpochs):
 if __name__ == '__main__':
     modelList = [
         #(models.baseModel,'Base Model'),
-        (models.variationModel1, 'Variation Model1')
+        #(models.variationModel1, 'Variation Model1')
+        (models.model2,"model2")
     ]
     main(modelList, 15)
