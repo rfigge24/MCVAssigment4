@@ -3,6 +3,7 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 import pandas as pd
+import visualizationPlotting as visplot
 
 #loading the data and setting up the label list:
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -85,10 +86,10 @@ baseModel.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
-callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=25)
+callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=15)
 
-pd.DataFrame(callback.history).plot()
-plt.show()
+visplot.plotPerformance(callback)
+
 
 print(callback.history.keys())
 
