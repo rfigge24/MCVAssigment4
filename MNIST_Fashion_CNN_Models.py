@@ -23,19 +23,21 @@ x_test = x_test / 255.0
 
 
 #viewing the data:
-plt.figure(figsize=(10,10))
-for i in range(25):
-    plt.subplot(5,5,i+1)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    plt.imshow(x_train[i], cmap=plt.cm.binary)
-    plt.xlabel(class_names[y_train[i]])
-plt.show()
+if False:
+    plt.figure(figsize=(10,10))
+    for i in range(25):
+        plt.subplot(5,5,i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(x_train[i], cmap=plt.cm.binary)
+        plt.xlabel(class_names[y_train[i]])
+    plt.show()
 
 #BaseLine model:
 baseModel = tf.keras.Sequential()
 
+#Adding layers to the base model:
 baseModel.add(
     tf.keras.layers.Conv2D(
     filters = 32,
@@ -55,8 +57,7 @@ baseModel.add(
     filters = 32,
     kernel_size = (3, 3),
     padding = 'valid',
-    activation = 'relu',
-    input_shape = (14, 14, 1)
+    activation = 'relu'
     )
 )
 
@@ -73,15 +74,18 @@ baseModel.add(
 
 baseModel.add(
     tf.keras.layers.Dense(
-    10
+    10,
+    activation=tf.keras.activations.softmax
     )
 )
 
+
+#Compiling Base Model:
 baseModel.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
-callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=5)
+callback = baseModel.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=25)
 
 pd.DataFrame(callback.history).plot()
 plt.show()
