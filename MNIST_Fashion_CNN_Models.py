@@ -35,6 +35,7 @@ if False:
         plt.xlabel(class_names[y_train[i]])
     plt.show()
 
+
 #BaseLine model:
 baseModel = tf.keras.Sequential()
 
@@ -63,7 +64,25 @@ baseModel.add(
 )
 
 baseModel.add(
-    tf.keras.layers.Flatten(input_shape=(14,14))
+    tf.keras.layers.MaxPool2D()
+)
+
+baseModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = (3, 3),
+    padding = 'valid',
+    activation = 'relu'
+    )
+)
+
+baseModel.add(
+    tf.keras.layers.MaxPool2D()
+)
+
+
+baseModel.add(
+    tf.keras.layers.Flatten()
 )
 
 baseModel.add(
