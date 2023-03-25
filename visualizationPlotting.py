@@ -61,9 +61,4 @@ def plotConfusionMatrix(Labels, Predictions, nrOfClasses, labelNames, modelname)
     plt.savefig(f'{modelname}/ConfusionmatrixPlot.png')
     plt.show()
 
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-
-plotConfusionMatrix([1,2,1,4,3,5,6,4,6,7,4,3,4,5,9,0,8,6,4,3,2,4,5,7,8,8,5,4,2],[2,2,1,4,3,5,6,4,6,7,4,3,4,5,9,0,8,6,4,3,2,4,5,7,8,8,5,4,2],10, class_names)
-
       
