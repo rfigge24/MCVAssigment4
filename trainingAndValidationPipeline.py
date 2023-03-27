@@ -5,6 +5,7 @@ import visualizationPlotting as visplot
 from keras.utils.vis_utils import plot_model
 import os
 import glob
+import shutil
 
 import models
 
@@ -37,7 +38,7 @@ def main(models, nrOfEpochs, save = True):
         model.summary()
 
         #earlystopping:
-        es = EarlyStopping(monitor='val_loss',patience=3, mode='min', verbose= 1,restore_best_weights= True)
+        es = EarlyStopping(monitor='val_accuracy',patience=15, mode='max', verbose= 1,restore_best_weights= True)
         #Fitting the model:
         history = model.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=nrOfEpochs, callbacks = [es])
         
@@ -47,9 +48,10 @@ def main(models, nrOfEpochs, save = True):
         if not os.path.exists(modelname):
             os.makedirs(modelname)
         else:
-            files = glob.glob(modelname + '/*')
-            for file in files:
-                os.remove(file)
+            shutil.rmtree(modelname)
+            #files = glob.glob(modelname + '/*')
+            #for file in files:
+            #    os.remove(file)
 
         #plot the performance:
         visplot.plotPerformance(history, modelname, nrOfEpochs)
@@ -62,8 +64,6 @@ def main(models, nrOfEpochs, save = True):
 
 if __name__ == '__main__':
     modelList = [
-        (models.baseModel,'Base Model'),
-        (models.variationModel1, 'Variation Model1'),
-        (models.model2,"model2")
+        (models.baseModel,'Base Model')
     ]
     main(modelList, 15)
