@@ -64,6 +64,7 @@ def main(models, nrOfEpochs, save = True):
 
 if __name__ == '__main__':
     modelList = [
-        (models.baseModel,'Base Model')
+        (models.baseModel,'Base Model'),
+        (models.dropoutModel, 'Dropout Model')
     ]
     main(modelList, 15)

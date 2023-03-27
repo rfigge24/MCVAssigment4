@@ -1,7 +1,7 @@
 import tensorflow as tf
 from keras.layers import LeakyReLU
 
-#------------------------------------- base model
+# -------- base model --------
 baseModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
 
 #Adding layers to the base model:
@@ -65,5 +65,75 @@ baseModel.add(
 )
 #Compiling Base Model:
 baseModel.compile(optimizer= tf.keras.optimizers.Adam(),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+              metrics=['accuracy'])
+
+# -------- Dropout Model --------
+dropoutModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+
+#Adding layers to the dropout model:
+dropoutModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 6,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    input_shape = (28, 28, 1)
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.Dropout(0.4)
+)
+dropoutModel.add(
+    tf.keras.layers.MaxPooling2D()
+)
+dropoutModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 16,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.MaxPooling2D()
+)
+dropoutModel.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.Flatten()
+)
+dropoutModel.add(
+    tf.keras.layers.Dense(
+    64,
+    activation = 'relu'
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.Dense(
+    120,
+    activation = 'relu'
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.Dense(
+    80,
+    activation = 'relu'
+    )
+)
+dropoutModel.add(
+    tf.keras.layers.Dense(
+    10,
+    activation=tf.keras.activations.softmax
+    )
+)
+#Compiling Base Model:
+dropoutModel.compile(optimizer= tf.keras.optimizers.Adam(),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
