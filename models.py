@@ -1,7 +1,7 @@
 import tensorflow as tf
 from keras.layers import LeakyReLU
 
-#-------------------------------------model2
+#------------------------------------- base model
 baseModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
 
 #Adding layers to the base model:
