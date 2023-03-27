@@ -31,7 +31,7 @@ def main(models, nrOfEpochs, save = True):
 
         # allow user to skip fitting existing model
         if os.path.exists(modelname):
-            if input('Model already exists. Refit model? Y/N: ').lower()[0] != 'y':
+            if input(f'[{modelname}] already exists. Refit model? Y/N: ').lower()[0] != 'y':
                 continue
 
         print(f'Training model {modelname}.')
@@ -65,6 +65,7 @@ def main(models, nrOfEpochs, save = True):
 if __name__ == '__main__':
     modelList = [
         (models.baseModel,'Base Model'),
-        (models.dropoutModel, 'Dropout Model')
+        (models.dropoutModel, 'Dropout Model'),
+        (models.batchNormModel, 'Normalization Model')
     ]
     main(modelList, 15)
