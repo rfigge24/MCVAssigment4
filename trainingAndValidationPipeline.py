@@ -1,5 +1,7 @@
 from keras.datasets import fashion_mnist
 from keras.callbacks import EarlyStopping
+from keras.callbacks import ModelCheckpoint
+
 from sklearn.model_selection import train_test_split
 import visualizationPlotting as visplot
 from keras.utils.vis_utils import plot_model
@@ -38,27 +40,30 @@ def main(models, nrOfEpochs, save = True):
         print(f'Training model {modelname}.')
         model.summary()
 
-        #earlystopping:
-        es = EarlyStopping(monitor='val_accuracy',patience=15, mode='max', verbose= 1,restore_best_weights= True)
-        #Fitting the model:
-        history = model.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=nrOfEpochs, callbacks = [es])
-        
-        
-
         #Create a directory to save the model plots and its performances:
         if not os.path.exists(modelname):
             os.makedirs(modelname)
         else:
             shutil.rmtree(modelname)
 
+        #Use a ModelCheckpoint callback to keep track of the best performing weights and save them:
+        checkpoint = ModelCheckpoint(f'{modelname}/best_performing_weights.h5', monitor='val_accuracy', save_best_only=True)
+
+        #Fitting the model:
+        history = model.fit(x_train, y_train, validation_data = (x_validate, y_validate), epochs=nrOfEpochs, callbacks = [checkpoint])
+
+        # load the best weights from the saved file
+        model.load_weights(f'{modelname}/best_performing_weights.h5')
+
+        #evaluate the model:
+        evaluation = model.evaluate(x_validate, y_validate)
+        print(f'validation Loss: {evaluation[0]}, validation Accuracy: {evaluation[1]}')
+
         #plot the performance:
         visplot.plotPerformance(history, modelname, nrOfEpochs)
         
         #plot a grapical scheme of the network
         plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
-
-        #save model
-        model.save(modelname)
 
 if __name__ == '__main__':
     modelList = [
