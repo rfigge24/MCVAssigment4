@@ -30,6 +30,12 @@ x_test = x_test / 255.0
 
 
 def main(models, nrOfEpochs, save = True):
+    #clear the existing performance text file:
+    if os.path.exists('performance.txt'):
+        with open('performance.txt', 'w') as file:
+            file.truncate(0)
+
+
     for model,modelname in models:
 
         # allow user to skip fitting existing model
@@ -54,10 +60,14 @@ def main(models, nrOfEpochs, save = True):
 
         # load the best weights from the saved file
         model.load_weights(f'{modelname}/best_performing_weights.h5')
-
         #evaluate the model:
         evaluation = model.evaluate(x_validate, y_validate)
-        print(f'validation Loss: {evaluation[0]}, validation Accuracy: {evaluation[1]}')
+        evaluationString = f'validation Loss: {evaluation[0]}, validation Accuracy: {evaluation[1]}'
+        print(evaluationString)
+
+        #write the performance to a textfile
+        with open('performance.txt','a', encoding="UTF-8") as file:
+            file.write(f'{modelname:30}' + ': ' + evaluationString+'\n')
 
         #plot the performance:
         visplot.plotPerformance(history, modelname, nrOfEpochs)
@@ -67,11 +77,13 @@ def main(models, nrOfEpochs, save = True):
 
 if __name__ == '__main__':
     modelList = [
-        (baseModel.baseModel,'Base Model'),
-        (variantModels.dropoutModel, 'Dropout Model'),
-        (variantModels.batchNormModel, 'Normalization Model'),
-        (variantModels.denseModel, 'Reshaped Dense Model'),
-        (variantModels.poolingModel, 'Extra Pooling Model'),
-        (variantModels.smallKernelModel, 'Smaller Kernel Model')
+        (baseModel.baseModel,           'Base Model'),
+        (variantModels.dropoutModel,    'Dropout Model'),
+        (variantModels.batchNormModel,  'Normalization Model'),
+        (variantModels.denseModel,      'Reshaped Dense Model'),
+        (variantModels.poolingModel,    'Extra Pooling Model'),
+        (variantModels.smallKernelModel,'Smaller Kernel Model'),
+        (variantModels.learningRate,    'higher learningRate Model'),
+        (variantModels.lessDense,       'One Less Dense Layer Model')
     ]
     main(modelList, 15)
