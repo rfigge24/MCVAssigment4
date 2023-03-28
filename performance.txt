@@ -1,0 +1,8 @@
+Base Model                    : validation Loss: 0.2832328975200653, validation Accuracy: 0.9055833220481873
+Dropout Model                 : validation Loss: 0.24513569474220276, validation Accuracy: 0.9134166836738586
+Normalization Model           : validation Loss: 0.3439154326915741, validation Accuracy: 0.9058333039283752
+Reshaped Dense Model          : validation Loss: 0.3182236850261688, validation Accuracy: 0.9079999923706055
+Extra Pooling Model           : validation Loss: 0.28554603457450867, validation Accuracy: 0.9083333611488342
+Smaller Kernel Model          : validation Loss: 0.2941318452358246, validation Accuracy: 0.9128333330154419
+higher learningRate Model     : validation Loss: 0.28790682554244995, validation Accuracy: 0.9073333144187927
+One Less Dense Layer Model    : validation Loss: 0.25056615471839905, validation Accuracy: 0.9097499847412109
