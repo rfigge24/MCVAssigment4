@@ -69,8 +69,8 @@ dropoutModel.add(
     activation=tf.keras.activations.softmax
     )
 )
-#Compiling Base Model:
-dropoutModel.compile(optimizer= tf.keras.optimizers.Adam(),
+#Compiling Dropout Model:
+dropoutModel.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
@@ -139,13 +139,13 @@ batchNormModel.add(
     activation=tf.keras.activations.softmax
     )
 )
-#Compiling Base Model:
-batchNormModel.compile(optimizer= tf.keras.optimizers.Adam(),
+#Compiling BatchNorm Model:
+batchNormModel.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
 # -------- Reshaped dense layers --------
-denseModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+denseModel = tf.keras.Sequential()
 
 #Adding layers to the base model:
 denseModel.add(
@@ -206,13 +206,13 @@ denseModel.add(
     activation=tf.keras.activations.softmax
     )
 )
-#Compiling Base Model:
-denseModel.compile(optimizer= tf.keras.optimizers.Adam(),
+#Compiling Dense Model:
+denseModel.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
 # -------- Extra pooling --------
-poolingModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+poolingModel = tf.keras.Sequential()
 
 #Adding layers to the base model:
 poolingModel.add(
@@ -276,13 +276,13 @@ poolingModel.add(
     activation=tf.keras.activations.softmax
     )
 )
-#Compiling Base Model:
-poolingModel.compile(optimizer= tf.keras.optimizers.Adam(),
+#Compiling Pooling Model:
+poolingModel.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.001),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
 
 # -------- base model --------
-smallKernelModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+smallKernelModel = tf.keras.Sequential()
 
 #Adding layers to the base model:
 smallKernelModel.add(
@@ -343,7 +343,74 @@ smallKernelModel.add(
     activation=tf.keras.activations.softmax
     )
 )
-#Compiling Base Model:
-smallKernelModel.compile(optimizer= tf.keras.optimizers.Adam(),
+#Compiling Small kernel Model:
+smallKernelModel.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.001),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+              metrics=['accuracy'])
+
+#-------- Learningrate model --------
+learningRate = tf.keras.Sequential()
+
+#Adding layers to the base model:
+learningRate.add(
+    tf.keras.layers.Conv2D(
+    filters = 6,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    input_shape = (28, 28, 1)
+    )
+)
+learningRate.add(
+    tf.keras.layers.MaxPooling2D()
+)
+learningRate.add(
+    tf.keras.layers.Conv2D(
+    filters = 16,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+learningRate.add(
+    tf.keras.layers.MaxPooling2D()
+)
+learningRate.add(
+    tf.keras.layers.Conv2D(
+    filters = 32,
+    kernel_size = 5,
+    padding = 'same',
+    activation = 'relu',
+    )
+)
+learningRate.add(
+    tf.keras.layers.Flatten()
+)
+learningRate.add(
+    tf.keras.layers.Dense(
+    64,
+    activation = 'relu'
+    )
+)
+learningRate.add(
+    tf.keras.layers.Dense(
+    120,
+    activation = 'relu'
+    )
+)
+learningRate.add(
+    tf.keras.layers.Dense(
+    80,
+    activation = 'relu'
+    )
+)
+learningRate.add(
+    tf.keras.layers.Dense(
+    10,
+    activation=tf.keras.activations.softmax
+    )
+)
+#Compiling Learning Rate Model:
+learningRate.compile(optimizer= tf.keras.optimizers.Adam(learning_rate = 0.002),
               loss=tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=['accuracy'])
