@@ -50,9 +50,6 @@ def main(models, nrOfEpochs, save = True):
             os.makedirs(modelname)
         else:
             shutil.rmtree(modelname)
-            #files = glob.glob(modelname + '/*')
-            #for file in files:
-            #    os.remove(file)
 
         #plot the performance:
         visplot.plotPerformance(history, modelname, nrOfEpochs)
@@ -67,6 +64,9 @@ if __name__ == '__main__':
     modelList = [
         (baseModel.baseModel,'Base Model'),
         (variantModels.dropoutModel, 'Dropout Model'),
-        (variantModels.batchNormModel, 'Normalization Model')
+        (variantModels.batchNormModel, 'Normalization Model'),
+        (variantModels.denseModel, 'Reshaped Dense Model'),
+        (variantModels.poolingModel, 'Extra Pooling Model'),
+        (variantModels.smallKernelModel, 'Smaller Kernel Model')
     ]
     main(modelList, 15)
