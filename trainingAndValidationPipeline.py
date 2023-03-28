@@ -57,7 +57,7 @@ def main(models, nrOfEpochs, save = True):
         visplot.plotPerformance(history, modelname, nrOfEpochs)
         
         #plot a grapical scheme of the network
-        #plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
+        plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
 
         #save model
         model.save(modelname)

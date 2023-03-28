@@ -69,7 +69,7 @@ baseModel.compile(optimizer= tf.keras.optimizers.Adam(),
               metrics=['accuracy'])
 
 # -------- Dropout Model --------
-dropoutModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+dropoutModel = tf.keras.Sequential()
 
 #Adding layers to the dropout model:
 dropoutModel.add(
@@ -82,10 +82,10 @@ dropoutModel.add(
     )
 )
 dropoutModel.add(
-    tf.keras.layers.Dropout(0.4)
+    tf.keras.layers.MaxPooling2D()
 )
 dropoutModel.add(
-    tf.keras.layers.MaxPooling2D()
+    tf.keras.layers.Dropout(0.3)
 )
 dropoutModel.add(
     tf.keras.layers.Conv2D(
@@ -97,6 +97,9 @@ dropoutModel.add(
 )
 dropoutModel.add(
     tf.keras.layers.MaxPooling2D()
+)
+dropoutModel.add(
+    tf.keras.layers.Dropout(0.1)
 )
 dropoutModel.add(
     tf.keras.layers.Conv2D(
@@ -139,7 +142,7 @@ dropoutModel.compile(optimizer= tf.keras.optimizers.Adam(),
               metrics=['accuracy'])
 
 # -------- generalisation model --------
-batchNormModel = tf.keras.Sequential()         #val_loss: 0.2572 - val_accuracy: 0.9137
+batchNormModel = tf.keras.Sequential()
 
 #Adding layers to the base model:
 batchNormModel.add(
