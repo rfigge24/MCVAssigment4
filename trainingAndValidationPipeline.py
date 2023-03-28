@@ -7,7 +7,8 @@ import os
 import glob
 import shutil
 
-import models
+import baseModel
+import variantModels
 
 #loading the data and setting up the label list:
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -64,8 +65,8 @@ def main(models, nrOfEpochs, save = True):
 
 if __name__ == '__main__':
     modelList = [
-        (models.baseModel,'Base Model'),
-        (models.dropoutModel, 'Dropout Model'),
-        (models.batchNormModel, 'Normalization Model')
+        (baseModel.baseModel,'Base Model'),
+        (variantModels.dropoutModel, 'Dropout Model'),
+        (variantModels.batchNormModel, 'Normalization Model')
     ]
     main(modelList, 15)
