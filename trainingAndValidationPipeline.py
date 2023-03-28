@@ -9,7 +9,8 @@ import os
 import glob
 import shutil
 
-import models
+import baseModel
+import variantModels
 
 #loading the data and setting up the label list:
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
@@ -62,14 +63,12 @@ def main(models, nrOfEpochs, save = True):
         visplot.plotPerformance(history, modelname, nrOfEpochs)
         
         #plot a grapical scheme of the network
-        #plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
+        plot_model(model, to_file=f'{modelname}/Network_Graph.png', show_shapes=True, show_layer_names=True, show_layer_activations = True)
 
 if __name__ == '__main__':
     modelList = [
-        (models.baseModel,'Base Model'),
-        (models.dropoutModel, 'Dropout Model'),
-        (models.batchNormModel, 'Normalization Model'),
-        (models.learningRate, 'LearningRate Model'),
-        (models.lessDense, 'LessDense Model')
+        (baseModel.baseModel,'Base Model'),
+        (variantModels.dropoutModel, 'Dropout Model'),
+        (variantModels.batchNormModel, 'Normalization Model')
     ]
     main(modelList, 15)
