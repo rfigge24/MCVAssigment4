@@ -85,11 +85,8 @@ if __name__ == '__main__':
     modelList = [
         (baseModel.baseModel,           'Base Model'),
         (variantModels.dropoutModel,    'Dropout Model'),
-        (variantModels.batchNormModel,  'Normalization Model'),
-        (variantModels.denseModel,      'Reshaped Dense Model'),
         (variantModels.poolingModel,    'Extra Pooling Model'),
         (variantModels.smallKernelModel,'Smaller Kernel Model'),
-        (variantModels.learningRate,    'higher learningRate Model'),
         (variantModels.lessDense,       'One Less Dense Layer Model')
     ]
-    main(modelList, 2)
+    main(modelList, 15)

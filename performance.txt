@@ -1,8 +1,24 @@
-Base Model                    : validation Loss: 0.2832328975200653, validation Accuracy: 0.9055833220481873
-Dropout Model                 : validation Loss: 0.24513569474220276, validation Accuracy: 0.9134166836738586
-Normalization Model           : validation Loss: 0.3439154326915741, validation Accuracy: 0.9058333039283752
-Reshaped Dense Model          : validation Loss: 0.3182236850261688, validation Accuracy: 0.9079999923706055
-Extra Pooling Model           : validation Loss: 0.28554603457450867, validation Accuracy: 0.9083333611488342
-Smaller Kernel Model          : validation Loss: 0.2941318452358246, validation Accuracy: 0.9128333330154419
-higher learningRate Model     : validation Loss: 0.28790682554244995, validation Accuracy: 0.9073333144187927
-One Less Dense Layer Model    : validation Loss: 0.25056615471839905, validation Accuracy: 0.9097499847412109
+Base Model:
+training Loss: 0.16106948256492615, training Accuracy: 0.9383333325386047
+validation Loss: 0.2720988094806671, validation Accuracy: 0.9084166884422302
+Dropout Model:
+training Loss: 0.24502089619636536, training Accuracy: 0.9063125252723694
+validation Loss: 0.25342094898223877, validation Accuracy: 0.9097499847412109
+Normalization Model:
+training Loss: 0.11754823476076126, training Accuracy: 0.9559375047683716
+validation Loss: 0.33479511737823486, validation Accuracy: 0.906416654586792
+Reshaped Dense Model:
+training Loss: 0.15075910091400146, training Accuracy: 0.9436666369438171
+validation Loss: 0.273791640996933, validation Accuracy: 0.9130833148956299
+Extra Pooling Model:
+training Loss: 0.20243412256240845, training Accuracy: 0.9235000014305115
+validation Loss: 0.26235172152519226, validation Accuracy: 0.9115833044052124
+Smaller Kernel Model:
+training Loss: 0.15810443460941315, training Accuracy: 0.9392083287239075
+validation Loss: 0.26120805740356445, validation Accuracy: 0.909500002861023
+higher learningRate Model:
+training Loss: 0.1530122309923172, training Accuracy: 0.9438124895095825
+validation Loss: 0.33648204803466797, validation Accuracy: 0.906416654586792
+One Less Dense Layer Model:
+training Loss: 0.1683984100818634, training Accuracy: 0.9367708563804626
+validation Loss: 0.25849825143814087, validation Accuracy: 0.9084166884422302
