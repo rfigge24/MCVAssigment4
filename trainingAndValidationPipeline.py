@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import visualizationPlotting as visplot
 from keras.utils.vis_utils import plot_model
 import os
-import glob
+import numpy as np
 import shutil
 
 import baseModel
@@ -60,14 +60,20 @@ def main(models, nrOfEpochs, save = True):
 
         # load the best weights from the saved file
         model.load_weights(f'{modelname}/best_performing_weights.h5')
-        #evaluate the model:
-        evaluation = model.evaluate(x_validate, y_validate)
-        evaluationString = f'validation Loss: {evaluation[0]}, validation Accuracy: {evaluation[1]}'
-        print(evaluationString)
+
+        #get the epoch with the max validation accuracy and the corresponding performance values:
+        epoch = np.argmax(history.history["val_accuracy"])
+        validationString = f'validation Loss: {history.history["val_loss"][epoch]}, validation Accuracy: {history.history["val_accuracy"][epoch]}'
+        trainingString = f'training Loss: {history.history["loss"][epoch]}, training Accuracy: {history.history["accuracy"][epoch]}'
+
+        print(trainingString)
+        print(validationString)
 
         #write the performance to a textfile
         with open('performance.txt','a', encoding="UTF-8") as file:
-            file.write(f'{modelname:30}' + ': ' + evaluationString+'\n')
+            file.write(f'{modelname}:\n')
+            file.write(trainingString + '\n')
+            file.write(validationString + '\n')
 
         #plot the performance:
         visplot.plotPerformance(history, modelname, nrOfEpochs)
@@ -86,4 +92,4 @@ if __name__ == '__main__':
         (variantModels.learningRate,    'higher learningRate Model'),
         (variantModels.lessDense,       'One Less Dense Layer Model')
     ]
-    main(modelList, 15)
+    main(modelList, 2)
