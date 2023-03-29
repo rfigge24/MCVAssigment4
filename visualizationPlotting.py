@@ -16,6 +16,7 @@ def plotPerformance(history, modelname, nrOfSetEpochs):
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
     plt.xlim(1,nrOfSetEpochs)
+    plt.ylim(0,0.8)
 
     plt.plot(epochs, loss, label='Training loss')
     plt.plot(epochs, val_loss, label='Validation loss')
@@ -24,7 +25,10 @@ def plotPerformance(history, modelname, nrOfSetEpochs):
     plt.savefig(f'{modelname}/LossPlot.png')
     plt.figure()
 
+    plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
+    plt.xlim(1,nrOfSetEpochs)
+    plt.ylim(0.5,1)
 
     plt.plot(epochs, acc, label='Training accuracy')
     plt.plot(epochs, val_acc, label='Validation accuracy')
