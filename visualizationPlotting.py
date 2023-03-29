@@ -39,8 +39,13 @@ def plotPerformance(history, modelname, nrOfSetEpochs):
     plt.show()
 
 def plotConfusionMatrix(matrix, labelNames, modelname):
-    sns.heatmap(matrix, annot=True, fmt='.0f', yticklabels = labelNames)
+    plt.figure(figsize=(10,8))
+    sns.heatmap(matrix, annot=True, fmt='.0f', yticklabels = labelNames, xticklabels = labelNames)
     plt.title(f'Confusion matrix for {modelname}')
+
+    plt.ylabel("True Labels:", fontsize = 15)
+    plt.xlabel("predicted Labels", fontsize = 15)
+    plt.yticks(rotation=0)
     plt.savefig(f'{modelname}/ConfusionMatrix.png')
     plt.show()
 
@@ -69,5 +74,3 @@ def plotConfusionMatrix(matrix, labelNames, modelname):
 
 #     plt.savefig(f'{modelname}/ConfusionmatrixPlot.png')
 #     plt.show()
-
-      
