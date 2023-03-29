@@ -30,7 +30,7 @@ def main(models):
 
         #Fitting the model:
         model.fit(x_train, y_train, epochs=nrOfEpochs)
-        model.save_weights(f'{modelname}/best_performing_weights_fulltrainingset.h5')
+        model.save_weights(f'{modelname}/weights_fulltrainingset.h5')
 
         print("Evaluating...")
         trainingPerformance = model.evaluate(x_train,y_train)
