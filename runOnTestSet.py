@@ -35,6 +35,14 @@ def main(models):
         results = model.evaluate(x_test, y_test)
         print("Test loss, test accuracy: ", results)
 
+        y_preds = []
+        predictions = model.predict(x_test, verbose = 1)
+        for i, p in enumerate(predictions):
+            y_preds.append(np.argmax(p))
+
+        confusion = tf.math.confusion_matrix(y_test, y_preds)
+        print(confusion)
+
 if __name__ == '__main__':
     modelList = [
         (variantModels.dropoutModel,    'Dropout Model', 20),
