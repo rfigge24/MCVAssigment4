@@ -41,7 +41,7 @@ def main(models):
             y_preds.append(np.argmax(p))
 
         confusion = tf.math.confusion_matrix(y_test, y_preds)
-        print(confusion)
+        visplot.plotConfusionMatrix(confusion, class_names, modelname)
 
 if __name__ == '__main__':
     modelList = [
